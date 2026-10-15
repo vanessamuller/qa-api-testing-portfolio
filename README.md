@@ -5,9 +5,9 @@ This Project demostrates my practical skills in manual API testing using Postman
 The goal is to apply QA fundamentals to real API and document the testying process in a structured, professional format.
 
 **Tools & Technologies**
--Postman - API requests and response validation
--REST API - HTTP methods, status codes, and JSON responses
--GitHub - Project documentation and version control
+- Postman - API requests and response validation
+- REST API - HTTP methods, status codes, and JSON responses
+- GitHub - Project documentation and version control
 
 **Project Scope**
 The current scope focuses on testing the room details endpoint:
@@ -15,11 +15,11 @@ The current scope focuses on testing the room details endpoint:
 GET /api/room/{id}
 
 Testing activities include:
--Validating successful API responses
--Verifying required response fields
--Checking data types and room price values
--Investigating API Behavior for an invalid room
--Documenting test cases and execution results
+- Validating successful API responses
+- Verifying required response fields
+- Checking data types and room price values
+- Investigating API Behavior for an invalid room
+- Documenting test cases and execution results
 
 **Test Documentation**
 
