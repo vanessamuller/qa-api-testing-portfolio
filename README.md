@@ -35,7 +35,7 @@ The project includes the following test cases:
 Findings
 During testing, the API returned 500 Internal Server Eoor when requesting room ID 4.
 
-The ecpected behavior for an invalid room ID has not yet been confirmed against the API specification. This finding is documented for further investigatioin rather than being classified as a confirmed defect.
+The expected behavior for an invalid room ID has not yet been confirmed against the API specification. This finding is documented for further investigatioin rather than being classified as a confirmed defect.
 
 **Project Status**
 In Progress
