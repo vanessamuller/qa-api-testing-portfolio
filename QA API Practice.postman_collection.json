@@ -48,18 +48,39 @@
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "GET Room- Valid ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Non-Existing room returns 404\", function (){\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Room has a room ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid || response.roomid).to.exist;\r\n});\r\n\r\npm.test(\"Room ID is a positive integer\", function(){\r\n    const response  = pm.response.json();\r\n    pm.expect(response.roomid).to.be.a(\"number\");\r\n    pm.expect(Number.isInteger(response.roomid)).to.eql(true);\r\n    pm.expect(response.roomid).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Returned room ID matches the requested ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid).to.eql(1);\r\n});\r\n\r\npm.test(\"Room has all required fields\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.property(\"roomid\");\r\n    pm.expect(response).to.have.property(\"roomName\");\r\n    pm.expect(response).to.have.property(\"roomPrice\");\r\n    pm.expect(response).to.have.property(\"type\");\r\n});\r\n\r\npm.test(\"Room price is  positive number\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomPrice).to.be.a(\"number\");\r\n    pm.expect(response.roomPrice).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Error response includes the correct path\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.path).to.eql(\"/room/4\");\r\n});"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": ""
+          "raw": "https://automationintesting.online/api/room/4",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "room",
+            "4"
+          ]
         }
       },
       "response": []
     },
     {
-      "name": "GET Room- Valid ID",
+      "name": "GET All Rooms - Validate Properties",
       "event": [
         {
           "listen": "test",
@@ -130,6 +151,10 @@
     },
     {
       "key": "roomId",
+      "value": ""
+    },
+    {
+      "key": "bookingId",
       "value": ""
     }
   ]
