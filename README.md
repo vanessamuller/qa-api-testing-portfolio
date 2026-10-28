@@ -59,3 +59,23 @@ Furure improvements will include additional API scenarios, expanded test coverag
 
 **Author**
 QA learner building practical sill in a API  testing, test case design defect investigation, and test documentation
+
+## Project Structure
+
+- test-cases/room-api-test-cases.md — Manual test cases and execution results.
+- QA API Practice — Postman collection containing API requests and automated tests.
+
+## Test Coverage
+
+The current API tests validate:
+
+- Response structure and the rooms property.
+- Presence of room data.
+- Required fields for each room.
+- Data types for room fields.
+
+## Current Findings
+
+The room-list endpoint (GET /api/room/) returned three rooms during testing, and all four automated checks passed.
+
+Individual room requests (GET /api/room/{id}) returned 500 Internal Server Error during testing. This behavior remains under investigation.
