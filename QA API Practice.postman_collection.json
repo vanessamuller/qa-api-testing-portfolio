@@ -55,7 +55,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Non-Existing room returns 404\", function (){\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Room has a room ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid || response.roomid).to.exist;\r\n});\r\n\r\npm.test(\"Room ID is a positive integer\", function(){\r\n    const response  = pm.response.json();\r\n    pm.expect(response.roomid).to.be.a(\"number\");\r\n    pm.expect(Number.isInteger(response.roomid)).to.eql(true);\r\n    pm.expect(response.roomid).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Returned room ID matches the requested ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid).to.eql(1);\r\n});\r\n\r\npm.test(\"Room has all required fields\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.property(\"roomid\");\r\n    pm.expect(response).to.have.property(\"roomName\");\r\n    pm.expect(response).to.have.property(\"roomPrice\");\r\n    pm.expect(response).to.have.property(\"type\");\r\n});\r\n\r\npm.test(\"Room price is  positive number\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomPrice).to.be.a(\"number\");\r\n    pm.expect(response.roomPrice).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Error response includes the correct path\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.path).to.eql(\"/room/4\");\r\n});"
+              "pm.test(\"Existing room returns 200\", function (){\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Room has a room ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid || response.roomid).to.exist;\r\n});\r\n\r\npm.test(\"Room ID is a positive integer\", function(){\r\n    const response  = pm.response.json();\r\n    pm.expect(response.roomid).to.be.a(\"number\");\r\n    pm.expect(Number.isInteger(response.roomid)).to.eql(true);\r\n    pm.expect(response.roomid).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Returned room ID matches the requested ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid).to.eql(Number(pm.variables.get(\"roomId\")));\r\n});\r\n\r\npm.test(\"Room has all required fields\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.property(\"roomid\");\r\n    pm.expect(response).to.have.property(\"roomName\");\r\n    pm.expect(response).to.have.property(\"roomPrice\");\r\n    pm.expect(response).to.have.property(\"type\");\r\n});\r\n\r\npm.test(\"Room price is  positive number\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomPrice).to.be.a(\"number\");\r\n    pm.expect(response.roomPrice).to.be.greaterThan(0);\r\n});\r\n"
             ]
           }
         }
@@ -64,16 +64,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://automationintesting.online/api/room/4",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/api/room/{{roomId}}",
           "host": [
-            "automationintesting",
-            "online"
+            "{{baseUrl}}"
           ],
           "path": [
             "api",
             "room",
-            "4"
+            "{{roomId}}"
           ]
         }
       },
@@ -87,16 +85,50 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Non-Existing room returns 404\", function (){\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Room has a room ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid || response.roomid).to.exist;\r\n});\r\n\r\npm.test(\"Room ID is a positive integer\", function(){\r\n    const response  = pm.response.json();\r\n    pm.expect(response.roomid).to.be.a(\"number\");\r\n    pm.expect(Number.isInteger(response.roomid)).to.eql(true);\r\n    pm.expect(response.roomid).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Returned room ID matches the requested ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid).to.eql(1);\r\n});\r\n\r\npm.test(\"Room has all required fields\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.property(\"roomid\");\r\n    pm.expect(response).to.have.property(\"roomName\");\r\n    pm.expect(response).to.have.property(\"roomPrice\");\r\n    pm.expect(response).to.have.property(\"type\");\r\n});\r\n\r\npm.test(\"Room price is  positive number\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomPrice).to.be.a(\"number\");\r\n    pm.expect(response.roomPrice).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Error response includes the correct path\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.path).to.eql(\"/room/4\");\r\n});"
+              "pm.test(\"Response contains the rooms property\", function(){\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response).to.have.property(\"rooms\");\r\n    pm.expect(response.rooms).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Response contains at least one room\", function(){\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.rooms).to.be.an(\"array\");\r\n    pm.expect(response.rooms.length).to.be.greaterThan(0);\r\n})\r\n\r\npm.test(\"Each room has the required fields\", function(){\r\n    const response = pm.response.json();\r\n\r\n    response.rooms.forEach(function(room){\r\n        pm.expect(room).to.have.property(\"roomid\");\r\n        pm.expect(room).to.have.property(\"roomName\");\r\n        pm.expect(room).to.have.property(\"roomPrice\");\r\n        pm.expect(room).to.have.property(\"type\");\r\n    });\r\n});\r\n\r\npm.test(\"Room fields have valid data types\", function(){\r\n    const response = pm.response.json();\r\n\r\n    response.rooms.forEach(function(room){\r\n        pm.expect(room.roomid).to.be.a(\"number\");\r\n        pm.expect(room.roomName).to.be.a(\"string\");\r\n        pm.expect(room.roomPrice).to.be.a(\"number\");\r\n        pm.expect(room.type).to.be.a(\"string\");\r\n    });\r\n});"
             ]
           }
         }
       ],
       "request": {
         "method": "GET",
-        "header": [],
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "en-GB,en;q=0.5"
+          },
+          {
+            "key": "Accept-Encoding",
+            "value": "gzip, deflate"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Origin",
+            "value": "https://automationintesting.online"
+          },
+          {
+            "key": "Cookie",
+            "value": "token={{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roomName\": \"101\",\n  \"type\": \"Suite\",\n  \"accessible\": true,\n  \"image\": \"https://blog.postman.com/wp-content/uploads/2014/07/logo.png\",\n  \"description\": \"This is room 101, dare you enter?\",\n  \"roomPrice\": 100,\n  \"features\": [\n    \"WiFi\", \"Safe\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
         "url": {
-          "raw": "https://automationintesting.online/api/room/4",
+          "raw": "https://automationintesting.online/api/room/",
           "protocol": "https",
           "host": [
             "automationintesting",
@@ -105,7 +137,7 @@
           "path": [
             "api",
             "room",
-            "4"
+            ""
           ]
         }
       },
@@ -119,7 +151,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Non-Existing room returns 404\", function (){\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Room has a room ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid || response.roomid).to.exist;\r\n});\r\n\r\npm.test(\"Room ID is a positive integer\", function(){\r\n    const response  = pm.response.json();\r\n    pm.expect(response.roomid).to.be.a(\"number\");\r\n    pm.expect(Number.isInteger(response.roomid)).to.eql(true);\r\n    pm.expect(response.roomid).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Returned room ID matches the requested ID\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomid).to.eql(1);\r\n});\r\n\r\npm.test(\"Room has all required fields\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response).to.have.property(\"roomid\");\r\n    pm.expect(response).to.have.property(\"roomName\");\r\n    pm.expect(response).to.have.property(\"roomPrice\");\r\n    pm.expect(response).to.have.property(\"type\");\r\n});\r\n\r\npm.test(\"Room price is  positive number\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.roomPrice).to.be.a(\"number\");\r\n    pm.expect(response.roomPrice).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Error response includes the correct path\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.path).to.eql(\"/room/4\");\r\n});"
+              "pm.test(\"Response returns the expected status\", function (){\r\n    pm.response.to.have.status(500);\r\n});\r\n\r\npm.test(\"Error response includes the correct path\", function(){\r\n    const response = pm.response.json();\r\n    pm.expect(response.path).to.eql(\"/room/4\");\r\n});"
             ]
           }
         }
@@ -128,16 +160,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://automationintesting.online/api/room/4",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/api/room/1",
           "host": [
-            "automationintesting",
-            "online"
+            "{{baseUrl}}"
           ],
           "path": [
             "api",
             "room",
-            "4"
+            "1"
           ]
         }
       },
