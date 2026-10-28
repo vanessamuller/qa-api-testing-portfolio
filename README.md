@@ -37,6 +37,22 @@ During testing, the API returned 500 Internal Server Eoor when requesting room I
 
 The expected behavior for an invalid room ID has not yet been confirmed against the API specification. This finding is documented for further investigatioin rather than being classified as a confirmed defect.
 
+## How to Run the API Tests
+
+1. Download the Postman collection JSON file from this repository.
+2. Open Postman.
+3. Select *Import* and upload the downloaded JSON file.
+4. Open the QA API Practice collection.
+5. Select a request and click *Send*.
+6. Review the response status, response body, and test results.
+
+## API Base URL
+
+https://automationintesting.online
+
+## Notes
+
+This is a learning project using a public practice API. Results may vary if the API changes or becomes unavailable.
 **Project Status**
 In Progress
 Furure improvements will include additional API scenarios, expanded test coverage, execution evidence, and introductory automated testing.
